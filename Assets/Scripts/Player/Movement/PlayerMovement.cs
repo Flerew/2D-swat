@@ -30,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
         _controls.GetMove();
     }
 
+    private void OnDisable()
+    {
+        _controls.Move -= Move;
+        _controls.SlowMove -= SlowMove;
+    }
+
     private void Move(Vector2 direction)
     {
 

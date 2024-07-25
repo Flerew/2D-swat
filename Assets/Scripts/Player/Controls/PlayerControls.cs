@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
-public class PlayerControls : IMove
+public class PlayerControls : IMove, IShoot, ILook
 {
     public event Action<Vector2> Move;
     public event Action<float> SlowMove;
-    public event Action<bool> Fire;
+    public event Action<Vector2> Look;
+    public event Action<float> Shoot;
+    public event Action<float> Reload;
 
     private PlayerInput _playerInput;
 
@@ -31,5 +34,20 @@ public class PlayerControls : IMove
         {
             Move?.Invoke(moveInput);
         }
+    }
+
+    public void GetMobileLook()
+    {
+        Vector2 lookInput = _playerInput.actions["Look"].ReadValue<Vector2>();
+        Look?.Invoke(lookInput);
+    }
+
+    public void GetShooting()
+    {
+        float shootInput = _playerInput.actions["Fire"].ReadValue<float>();
+        Shoot?.Invoke(shootInput);
+
+        float reloadInput = _playerInput.actions["Reload"].ReadValue<float>();
+        Reload?.Invoke(reloadInput);
     }
 }

@@ -46,9 +46,27 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""9d44e41f-f27c-4359-88ae-8cd8d6a6c0a3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Fire"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""93fe3930-e5a1-4254-912f-e7346c589bda"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f1b2aaf-a85b-4e2b-9863-7b72539dfbbe"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -165,6 +183,39 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""action"": ""SlowMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e218a4a5-20dd-4dd3-910e-7ce878a87256"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa28c0fe-fe4f-48dd-a908-d263d3e69d1f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24308ffd-372c-42e2-977f-15918abf8a56"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -175,7 +226,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         m_Controls = asset.FindActionMap("Controls", throwIfNotFound: true);
         m_Controls_Move = m_Controls.FindAction("Move", throwIfNotFound: true);
         m_Controls_SlowMove = m_Controls.FindAction("SlowMove", throwIfNotFound: true);
+        m_Controls_Look = m_Controls.FindAction("Look", throwIfNotFound: true);
         m_Controls_Fire = m_Controls.FindAction("Fire", throwIfNotFound: true);
+        m_Controls_Reload = m_Controls.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -239,14 +292,18 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
     private List<IControlsActions> m_ControlsActionsCallbackInterfaces = new List<IControlsActions>();
     private readonly InputAction m_Controls_Move;
     private readonly InputAction m_Controls_SlowMove;
+    private readonly InputAction m_Controls_Look;
     private readonly InputAction m_Controls_Fire;
+    private readonly InputAction m_Controls_Reload;
     public struct ControlsActions
     {
         private @ControlsClass m_Wrapper;
         public ControlsActions(@ControlsClass wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Controls_Move;
         public InputAction @SlowMove => m_Wrapper.m_Controls_SlowMove;
+        public InputAction @Look => m_Wrapper.m_Controls_Look;
         public InputAction @Fire => m_Wrapper.m_Controls_Fire;
+        public InputAction @Reload => m_Wrapper.m_Controls_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -262,9 +319,15 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @SlowMove.started += instance.OnSlowMove;
             @SlowMove.performed += instance.OnSlowMove;
             @SlowMove.canceled += instance.OnSlowMove;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IControlsActions instance)
@@ -275,9 +338,15 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @SlowMove.started -= instance.OnSlowMove;
             @SlowMove.performed -= instance.OnSlowMove;
             @SlowMove.canceled -= instance.OnSlowMove;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IControlsActions instance)
@@ -299,6 +368,8 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnSlowMove(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
