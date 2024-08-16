@@ -5,7 +5,7 @@ public class GunConfig : ScriptableObject
 {
     [SerializeField] private float _damage;
     [SerializeField] private int _ammoCount;
-    [SerializeField] private int _ammoCountInMagazine;
+    [SerializeField] private int _magazineCapacity;
     [SerializeField] private float _timeBetweenShots;
     [SerializeField] private float _reloadTime;
     [SerializeField] private float _bulletsSpreads;
@@ -13,7 +13,7 @@ public class GunConfig : ScriptableObject
 
     public float Damage => _damage;
     public int AmmoCount => _ammoCount;
-    public int AmmoCountInMagazine => _ammoCountInMagazine;
+    public int MagazineCapacity => _magazineCapacity;
     public float TimeBetweenShots => _timeBetweenShots;
     public float ReloadTime => _reloadTime;
     public float BulletsSpreads => _bulletsSpreads;

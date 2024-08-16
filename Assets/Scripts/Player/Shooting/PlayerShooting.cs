@@ -6,7 +6,7 @@ using Zenject;
 public class PlayerShooting : MonoBehaviour
 {
     private const float NoShootState = 0f;
-    private const float ShootState = 1f;
+    private const float EnableState = 1f;
 
     private IShoot _controls;
     private Player _player;
@@ -18,7 +18,7 @@ public class PlayerShooting : MonoBehaviour
         _player = GetComponent<Player>();
 
         _controls.Shoot += Shoot;
-        _controls.Reload += Reaload;
+        _controls.Reload += Reload;
     }
 
     private void Update()
@@ -29,18 +29,19 @@ public class PlayerShooting : MonoBehaviour
     private void OnDisable()
     {
         _controls.Shoot -= Shoot;
-        _controls.Reload -= Reaload;
+        _controls.Reload -= Reload;
     }
 
     private void Shoot(float shootState)
     {
-        if(shootState == ShootState)
+        if (shootState == EnableState)
             _player.Gun.Shoot();
     }
 
-    private void Reaload(float reloadState)
+    private void Reload(float reloadState)
     {
-        
+        if(reloadState == EnableState)
+            _player.Gun.ReloadMagazine();
     }
 
 }
