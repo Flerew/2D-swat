@@ -71,6 +71,15 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WeaponSide"",
+                    ""type"": ""Button"",
+                    ""id"": ""c15510cc-4a35-4e15-9702-6998c3deed23"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -216,6 +225,28 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef006302-426a-4bfe-b010-2d8d74cc2584"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a0f8804-43fb-45a3-acb6-08f5267e791d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -229,6 +260,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         m_Controls_Look = m_Controls.FindAction("Look", throwIfNotFound: true);
         m_Controls_Fire = m_Controls.FindAction("Fire", throwIfNotFound: true);
         m_Controls_Reload = m_Controls.FindAction("Reload", throwIfNotFound: true);
+        m_Controls_WeaponSide = m_Controls.FindAction("WeaponSide", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +327,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Look;
     private readonly InputAction m_Controls_Fire;
     private readonly InputAction m_Controls_Reload;
+    private readonly InputAction m_Controls_WeaponSide;
     public struct ControlsActions
     {
         private @ControlsClass m_Wrapper;
@@ -304,6 +337,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Controls_Look;
         public InputAction @Fire => m_Wrapper.m_Controls_Fire;
         public InputAction @Reload => m_Wrapper.m_Controls_Reload;
+        public InputAction @WeaponSide => m_Wrapper.m_Controls_WeaponSide;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -328,6 +362,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @WeaponSide.started += instance.OnWeaponSide;
+            @WeaponSide.performed += instance.OnWeaponSide;
+            @WeaponSide.canceled += instance.OnWeaponSide;
         }
 
         private void UnregisterCallbacks(IControlsActions instance)
@@ -347,6 +384,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @WeaponSide.started -= instance.OnWeaponSide;
+            @WeaponSide.performed -= instance.OnWeaponSide;
+            @WeaponSide.canceled -= instance.OnWeaponSide;
         }
 
         public void RemoveCallbacks(IControlsActions instance)
@@ -371,5 +411,6 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnWeaponSide(InputAction.CallbackContext context);
     }
 }

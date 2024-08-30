@@ -52,8 +52,7 @@ public class PlayerView : MonoBehaviour
 
     private void MobileLook(Vector2 joystickPos)
     {
-        //Vector2 direction = joystickPos - _rb.position;
-        //float angle = Mathf.Atan2(direction.x , direction.y) * Mathf.Rad2Deg - 90f;
-        //transform.LookAt(direction)
+        float angle = Mathf.Atan2(joystickPos.x , joystickPos.y) * Mathf.Rad2Deg;
+        transform.eulerAngles = new Vector3(0, 0, -angle);
     }
 }

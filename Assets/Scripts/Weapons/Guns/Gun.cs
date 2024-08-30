@@ -47,12 +47,17 @@ public abstract class Gun : Weapon
                 _ammoCountInMagazine = _magazineCapacity;
         }
 
+        ShowAmmoEvent();
+    }
+
+    public void ShowAmmoEvent()
+    {
         AmmoChange?.Invoke(_ammoCountInMagazine, _ammoCount);
     }
 
     public virtual void Shoot()
     {
-        TryShoot();
+        _ = ShootAsync();
     }
 
     public virtual void ReloadMagazine()
@@ -60,32 +65,28 @@ public abstract class Gun : Weapon
         _ = ReloadMagazineAsync();
     }
 
-    protected bool TryShoot()
+    protected async UniTaskVoid ShootAsync()
     {
         if (_canShot && _isEnoughAmmo)
         {
             GameObject bullet = _bulletPrefab.Spawn(_bulletSpawnPos, transform.rotation);
             if (bullet.TryGetComponent(out Bullet component))
             {
+                _canShot = false;
                 Vector3 direction = transform.up;
 
                 Rigidbody2D bulletRb = component.GetRigidbody();
                 bulletRb.AddForce(direction * _config.BulletSpeed, ForceMode2D.Impulse);
 
                 ReduceAmmo();
-                StartCoroutine(WaitBetweenShots());
+
+                await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenShots));
+                _canShot = true;
             }
             else
             {
                 throw new NullReferenceException(bullet.name + "doesn't have Bullet component");
             }
-
-
-            return true;
-        }
-        else
-        {
-            return false;
         }
     }
 
@@ -125,12 +126,5 @@ public abstract class Gun : Weapon
             _isEnoughAmmo = true;
             _isReloading = false;
         }
-    }
-
-    private IEnumerator WaitBetweenShots()
-    {
-        _canShot = false;
-        yield return new WaitForSeconds(_timeBetweenShots);
-        _canShot = true;
     }
 }

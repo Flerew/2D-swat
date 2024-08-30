@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Player
   - Weapon
-  - 
-  - 
-  - 
+  - Walls
+  - PlayerBullet
+  - EnemyBullet
   - 
   - 
   - 

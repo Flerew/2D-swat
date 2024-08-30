@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c03dc50b52845b2479258f79d75a4448
+guid: edc15727d43052c4999dc597b0c8207b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WallsTiles_0
+      name: output-onlinepngtools_0
       rect:
         serializedVersion: 2
         x: 0
@@ -135,14 +135,14 @@ TextureImporter:
         - {x: 32, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 8a6b925234389f04a98f3520fd5f9bcf
-      internalID: 2079752974
+      spriteID: 28d811cc7235d5e4aa68a5d161823492
+      internalID: 1649406337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallsTiles_1
+      name: output-onlinepngtools_1
       rect:
         serializedVersion: 2
         x: 64
@@ -154,20 +154,20 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -32, y: 32}
+      - - {x: -16, y: -32}
+        - {x: -16, y: 32}
+        - {x: -32, y: 32}
         - {x: -32, y: -32}
-        - {x: -15.994537, y: -32}
-        - {x: -16.007698, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 8f57db08de1057c44a152778d157c2ff
-      internalID: 1555045196
+      spriteID: 30e5df0c495d1d64ca7fb25762cba9ad
+      internalID: 990285529
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallsTiles_2
+      name: output-onlinepngtools_2
       rect:
         serializedVersion: 2
         x: 128
@@ -179,20 +179,20 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -32, y: -16}
-        - {x: -32, y: -32}
+      - - {x: -32, y: -32}
         - {x: 32, y: -32}
         - {x: 32, y: -16}
+        - {x: -32, y: -16}
       tessellationDetail: 0
       bones: []
-      spriteID: a294382d24cb2fa4ab03730efdbfac19
-      internalID: -169098675
+      spriteID: 31577e50d8d6be24ca44aa23260471aa
+      internalID: -130620188
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallsTiles_3
+      name: output-onlinepngtools_3
       rect:
         serializedVersion: 2
         x: 192
@@ -204,20 +204,20 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 16.014313, y: 32}
+      - - {x: 16, y: 32}
         - {x: 16, y: -32}
         - {x: 32, y: -32}
         - {x: 32, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 2c12e0eec15c76549a4349f1ae55ee22
-      internalID: -2142903279
+      spriteID: decdcb53d1d80fe469c683cbdf8cda3f
+      internalID: -1636764137
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallsTiles_4
+      name: output-onlinepngtools_4
       rect:
         serializedVersion: 2
         x: 256
@@ -230,21 +230,21 @@ TextureImporter:
       outline: []
       physicsShape:
       - - {x: -32, y: 32}
-        - {x: -32, y: 16.019989}
+        - {x: -32, y: 16}
         - {x: 16, y: 16}
         - {x: 16, y: -32}
         - {x: 32, y: -32}
         - {x: 32, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: e30cf17debfdfe8479ab5f5349ea8dfc
-      internalID: -1710198153
+      spriteID: 43d48ebae965a0743b06d6099e0aea03
+      internalID: -1480134620
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallsTiles_5
+      name: output-onlinepngtools_5
       rect:
         serializedVersion: 2
         x: 320
@@ -264,14 +264,14 @@ TextureImporter:
         - {x: 32, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 4f577fbb7ec07404a960d9e07fec5590
-      internalID: 551349230
+      spriteID: aff3b9046febc8943be4392c0dad17ff
+      internalID: 1219665227
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallsTiles_6
+      name: output-onlinepngtools_6
       rect:
         serializedVersion: 2
         x: 384
@@ -283,22 +283,22 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: -16, y: -16}
-        - {x: -16, y: 32}
-        - {x: -32, y: 32}
+      - - {x: -32, y: 32}
         - {x: -32, y: -32}
         - {x: 32, y: -32}
         - {x: 32, y: -16}
+        - {x: -16, y: -16}
+        - {x: -16, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 1f8b278ddab1e974ea20cba00729362b
-      internalID: -1022380778
+      spriteID: 3224fac9675995540be5088241f70a79
+      internalID: 265805437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallsTiles_7
+      name: output-onlinepngtools_7
       rect:
         serializedVersion: 2
         x: 448
@@ -318,8 +318,8 @@ TextureImporter:
         - {x: 32, y: 32}
       tessellationDetail: 0
       bones: []
-      spriteID: 9dd2b13eccf780f4fb4b5a28f87051c2
-      internalID: 1291158157
+      spriteID: a9fefb0cc7cc2ca49bb8b5597af68081
+      internalID: -1909654908
       vertices: []
       indices: 
       edges: []
@@ -335,14 +335,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WallsTiles_0: 2079752974
-      WallsTiles_1: 1555045196
-      WallsTiles_2: -169098675
-      WallsTiles_3: -2142903279
-      WallsTiles_4: -1710198153
-      WallsTiles_5: 551349230
-      WallsTiles_6: -1022380778
-      WallsTiles_7: 1291158157
+      output-onlinepngtools_0: 1649406337
+      output-onlinepngtools_1: 990285529
+      output-onlinepngtools_2: -130620188
+      output-onlinepngtools_3: -1636764137
+      output-onlinepngtools_4: -1480134620
+      output-onlinepngtools_5: 1219665227
+      output-onlinepngtools_6: 265805437
+      output-onlinepngtools_7: -1909654908
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -43,5 +43,4 @@ public class PlayerShooting : MonoBehaviour
         if(reloadState == EnableState)
             _player.Gun.ReloadMagazine();
     }
-
 }

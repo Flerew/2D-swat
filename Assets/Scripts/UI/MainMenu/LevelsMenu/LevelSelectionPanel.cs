@@ -7,7 +7,7 @@ using Zenject;
 public class LevelSelectionPanel : MonoBehaviour
 {
     [SerializeField] private SelectLevelButton[] _selectLevelButtons;
-    [SerializeField] private Gun _selectedGun;
+    [SerializeField] private Equipment _equipment;
 
     private SceneLoadMediator _sceneLoader;
 
@@ -31,6 +31,10 @@ public class LevelSelectionPanel : MonoBehaviour
 
     private void OnLevelSelected(int level)
     {
-        _sceneLoader.GoToGameplayLevel(new LevelLoadingData(DifficultyLevel.Easy), new PlayerLoadingData(_selectedGun), level);
+        LevelLoadingData levelLoadingData = new LevelLoadingData(DifficultyLevel.Easy);
+        PlayerLoadingData playerLoadingData = new PlayerLoadingData(_equipment.Gun);
+
+        _sceneLoader.GoToGameplayLevel(levelLoadingData, playerLoadingData, level);
     }
+
 }

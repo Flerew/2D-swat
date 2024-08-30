@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16780c5c88792fe49954823957bd00f1, type: 3}
+  m_Name: GunFactory
+  m_EditorClassIdentifier: 
+  _config:
+    _pistolGunPrefab: {fileID: 4267263201112480693, guid: 9ab243be0153620458638c317d4b6d3e, type: 3}
+    _rifleGunPrefab: {fileID: 8844690753946012029, guid: 553d8cf5689fee741b18ae75eaf70391, type: 3}

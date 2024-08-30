@@ -5,19 +5,25 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PlayerControls : IMove, IShoot, ILook
+public class PlayerControls : IMove, IShoot, ILook, IWeaponSide
 {
     public event Action<Vector2> Move;
     public event Action<float> SlowMove;
     public event Action<Vector2> Look;
     public event Action<float> Shoot;
     public event Action<float> Reload;
+    public event Action ChangeWeaponSideAction;
 
     private PlayerInput _playerInput;
+
+    private InputAction _changeWeaponSide;
 
     public PlayerControls(PlayerInput playerInput)
     {
         _playerInput = playerInput;
+
+        _changeWeaponSide = playerInput.actions["WeaponSide"];
+        _changeWeaponSide.started += ChangeWeaponSide;
     }
 
     public void GetMove()
@@ -49,5 +55,10 @@ public class PlayerControls : IMove, IShoot, ILook
 
         float reloadInput = _playerInput.actions["Reload"].ReadValue<float>();
         Reload?.Invoke(reloadInput);
+    }
+
+    public void ChangeWeaponSide(InputAction.CallbackContext context)
+    {
+        ChangeWeaponSideAction?.Invoke();
     }
 }

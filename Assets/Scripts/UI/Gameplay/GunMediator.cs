@@ -17,6 +17,7 @@ public class GunMediator : MonoBehaviour
         _playerGun = player.Gun;
 
         _playerGun.AmmoChange += UpdateAmmoCount;
+        _playerGun.ShowAmmoEvent();
     }
 
     private void UpdateAmmoCount(int magazineAmmoCount, int AmmoCount)

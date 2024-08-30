@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PistolGunConfig", menuName = "Config/PistolGunConfig")]
+[CreateAssetMenu(fileName = "PistolGunConfig", menuName = "Config/GunConfig")]
 public class GunConfig : ScriptableObject
 {
     [SerializeField] private float _damage;
