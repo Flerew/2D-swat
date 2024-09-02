@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.ComponentModel;
 
 public abstract class Gun : Weapon
 {
@@ -12,39 +13,39 @@ public abstract class Gun : Weapon
     [SerializeField] private Transform _bulletSpawnPos;
     [SerializeField] private GameObject _bulletCasing;
 
-    private bool _canShot = true;
-    private bool _isEnoughAmmo;
-    private bool _isReloading;
+    protected bool canShot = true;
+    protected bool isEnoughAmmo;
+    protected bool isReloading;
 
-    private float _damage;
-    private int _ammoCount;
-    private int _magazineCapacity;
-    private int _ammoCountInMagazine;
-    private float _timeBetweenShots;
-    private float _reloadTime;
-    private float _bulletsSpreads;
-    private float _bulletSpeed;
+    protected float damage;
+    protected int ammoCount;
+    protected int magazineCapacity;
+    protected int ammoCountInMagazine;
+    protected float timeBetweenShots;
+    protected float reloadTime;
+    protected float bulletsSpreads;
+    protected float bulletSpeed;
 
     public void Initialize()
     {
-        _damage = _config.Damage; // isnt using
-        _ammoCount = _config.AmmoCount;
-        _magazineCapacity = _config.MagazineCapacity;
-        _timeBetweenShots = _config.TimeBetweenShots;
-        _reloadTime = _config.ReloadTime;
-        _bulletsSpreads = _config.BulletsSpreads; // isnt using
-        _bulletSpeed = _config.BulletSpeed;
+        damage = _config.Damage; // isnt using
+        ammoCount = _config.AmmoCount;
+        magazineCapacity = _config.MagazineCapacity;
+        timeBetweenShots = _config.TimeBetweenShots;
+        reloadTime = _config.ReloadTime;
+        bulletsSpreads = _config.BulletsSpreads; // isnt using
+        bulletSpeed = _config.BulletSpeed;
 
-        _ammoCount -= 5;
+        ammoCount -= 5;
 
-        if (_ammoCount > 0)
+        if (ammoCount > 0)
         {
-            _isEnoughAmmo = true;
+            isEnoughAmmo = true;
 
-            if (_ammoCount < _magazineCapacity)
-                _ammoCountInMagazine = _ammoCount;
+            if (ammoCount < magazineCapacity)
+                ammoCountInMagazine = ammoCount;
             else
-                _ammoCountInMagazine = _magazineCapacity;
+                ammoCountInMagazine = magazineCapacity;
         }
 
         ShowAmmoEvent();
@@ -52,7 +53,7 @@ public abstract class Gun : Weapon
 
     public void ShowAmmoEvent()
     {
-        AmmoChange?.Invoke(_ammoCountInMagazine, _ammoCount);
+        AmmoChange?.Invoke(ammoCountInMagazine, ammoCount);
     }
 
     public virtual void Shoot()
@@ -67,64 +68,74 @@ public abstract class Gun : Weapon
 
     protected async UniTaskVoid ShootAsync()
     {
-        if (_canShot && _isEnoughAmmo)
+        if (canShot && isEnoughAmmo)
         {
-            GameObject bullet = _bulletPrefab.Spawn(_bulletSpawnPos, transform.rotation);
-            if (bullet.TryGetComponent(out Bullet component))
-            {
-                _canShot = false;
-                Vector3 direction = transform.up;
+            canShot = false;
+            OneShoot();
 
-                Rigidbody2D bulletRb = component.GetRigidbody();
-                bulletRb.AddForce(direction * _config.BulletSpeed, ForceMode2D.Impulse);
+            ReduceAmmo();
 
-                ReduceAmmo();
+            await UniTask.Delay(TimeSpan.FromSeconds(timeBetweenShots));
+            canShot = true;
+            
+        }
+    }
 
-                await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenShots));
-                _canShot = true;
-            }
-            else
-            {
-                throw new NullReferenceException(bullet.name + "doesn't have Bullet component");
-            }
+    protected void OneShoot()
+    {
+        GameObject bullet = _bulletPrefab.Spawn(_bulletSpawnPos, transform.rotation);
+
+        if (bullet.TryGetComponent(out Bullet component))
+        {
+            Vector3 direction = transform.up + new Vector3(0, GetRandomSpread(), 0);
+
+            Rigidbody2D bulletRb = component.GetRigidbody();
+            bulletRb.AddForce(direction * _config.BulletSpeed, ForceMode2D.Impulse);
         }
     }
 
     protected void ReduceAmmo()
     {
-        _ammoCountInMagazine--;
-        AmmoChange?.Invoke(_ammoCountInMagazine, _ammoCount);
+        ammoCountInMagazine--;
+        AmmoChange?.Invoke(ammoCountInMagazine, ammoCount);
 
-        if (_ammoCountInMagazine <= 0)
-            _isEnoughAmmo = false;
+        if (ammoCountInMagazine <= 0)
+            isEnoughAmmo = false;
     }
 
     private async UniTaskVoid ReloadMagazineAsync()
     {
-        if (_ammoCount > 0 && _isReloading == false)
+        if (ammoCount > 0 && isReloading == false)
         {
-            _isEnoughAmmo = false;
-            _isReloading = true;
+            isEnoughAmmo = false;
+            isReloading = true;
 
-            await UniTask.Delay(TimeSpan.FromSeconds(_reloadTime));
+            await UniTask.Delay(TimeSpan.FromSeconds(reloadTime));
 
-            int ammoToFullMagazine = _magazineCapacity - _ammoCountInMagazine;
+            int ammoToFullMagazine = magazineCapacity - ammoCountInMagazine;
 
-            if (_ammoCount >= ammoToFullMagazine)
+            if (ammoCount >= ammoToFullMagazine)
             {
-                _ammoCount -= ammoToFullMagazine;
-                _ammoCountInMagazine += ammoToFullMagazine;
+                ammoCount -= ammoToFullMagazine;
+                ammoCountInMagazine += ammoToFullMagazine;
             }
             else
             {
-                _ammoCountInMagazine += _ammoCount;
-                _ammoCount = 0;
+                ammoCountInMagazine += ammoCount;
+                ammoCount = 0;
             }
 
-            AmmoChange?.Invoke(_ammoCountInMagazine, _ammoCount);
+            AmmoChange?.Invoke(ammoCountInMagazine, ammoCount);
 
-            _isEnoughAmmo = true;
-            _isReloading = false;
+            isEnoughAmmo = true;
+            isReloading = false;
         }
+    }
+
+    private float GetRandomSpread()
+    {
+        float value = UnityEngine.Random.Range(-bulletsSpreads, bulletsSpreads);
+
+        return value;
     }
 }

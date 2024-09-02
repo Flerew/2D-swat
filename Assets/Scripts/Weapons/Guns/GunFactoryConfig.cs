@@ -8,7 +8,9 @@ public class GunFactoryConfig
 {
     [SerializeField] private Gun _pistolGunPrefab;
     [SerializeField] private Gun _rifleGunPrefab;
+    [SerializeField] private Gun _shotgunPrefab;
 
     public Gun PistolGunPrefab => _pistolGunPrefab;
     public Gun RifleGunPrefab => _rifleGunPrefab;
+    public Gun ShotgunPrefab => _shotgunPrefab;
 }

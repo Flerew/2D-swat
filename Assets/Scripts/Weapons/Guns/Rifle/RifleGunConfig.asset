@@ -15,7 +15,7 @@ MonoBehaviour:
   _damage: 5
   _ammoCount: 180
   _magazineCapacity: 30
-  _timeBetweenShots: 0.1
+  _timeBetweenShots: 0.15
   _reloadTime: 2
-  _bulletsSpreads: 1
+  _bulletsSpreads: 0.075
   _bulletSpeed: 0.5

@@ -7,15 +7,16 @@ using UnityEngine.UI;
 
 public class GunDropdown : MonoBehaviour
 {
-    public event Action<Gun> ChangeGun;
+    public event Action<Gun, int> ChangeGun; // Gun, id
 
     private GunFactory _gunFactory;
     private Dropdown _dropdown;
 
-    public void Initialize(GunFactory gunFactory) 
+    public void Initialize(GunFactory gunFactory, int value = 0) 
     {
         _gunFactory = gunFactory;
         _dropdown = GetComponent<Dropdown>();
+        _dropdown.value = value;
     }
 
     public void OnMenuChoice() // 0-pistol 1-rifle 2-shotgun
@@ -27,12 +28,17 @@ public class GunDropdown : MonoBehaviour
         {
             case 0:
                 gun = _gunFactory.Get(GunType.Pistol);
-                ChangeGun?.Invoke(gun);
+                ChangeGun?.Invoke(gun, value);
                 break;
 
             case 1:
                 gun = _gunFactory.Get(GunType.Rifle);
-                ChangeGun?.Invoke(gun);
+                ChangeGun?.Invoke(gun, value);
+                break;
+
+            case 2:
+                gun = _gunFactory.Get(GunType.Shotgun);
+                ChangeGun?.Invoke(gun, value);
                 break;
 
             default:

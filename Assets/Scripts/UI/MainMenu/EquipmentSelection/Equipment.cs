@@ -9,19 +9,26 @@ public class Equipment : MonoBehaviour
     [SerializeField] private GunDropdown _gunDropdown;
     [SerializeField] private GunFactory _gunFactory;
 
+    private SaveEquipment _saveEquipment = new SaveEquipment();
+    private EquipmentData _equipmentData;
+
     public Gun Gun { get; private set; }
 
     [Inject]
     private void Construct()
     {
-        _gunDropdown.Initialize(_gunFactory);
+        _equipmentData = _saveEquipment.GetData();
+
+        _gunDropdown.Initialize(_gunFactory, _equipmentData.SelectedGunId);
 
         _gunDropdown.ChangeGun += ChangeGun;
         _gunDropdown.OnMenuChoice();
     }
 
-    private void ChangeGun(Gun gun)
+    private void ChangeGun(Gun gun, int id)
     {
         Gun = gun;
+        _equipmentData.SelectedGunId = id;
+        _saveEquipment.SaveData(_equipmentData);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GunFactory", menuName = "Factory/GunFactory")]
@@ -17,8 +18,8 @@ public class GunFactory : ScriptableObject
             case GunType.Rifle:
                 return _config.RifleGunPrefab;
 
-            //case GunType.Shotgun:
-            //return new Shotgun;
+            case GunType.Shotgun:
+                return _config.ShotgunPrefab;
 
             //case GunType.SubmachineGun:
             //return new SubmachineGun;
