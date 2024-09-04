@@ -13,7 +13,7 @@ public class GameplayUIBootstrap : MonoBehaviour
 
     private void CheckDeviceUI()
     {
-        //if (SystemInfo.deviceType == DeviceType.Handheld)
+        if (SystemInfo.deviceType == DeviceType.Handheld)
             _mobileUI.EnableMobileUI();
     }
 }

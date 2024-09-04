@@ -20,11 +20,11 @@ public class PlayerView : MonoBehaviour
         _playerControls = playerControls;
         _rb = GetComponent<Rigidbody2D>();
 
-        //if (SystemInfo.deviceType == DeviceType.Handheld)
-        //{
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
             _isHandledDevice = true;
             _playerControls.Look += MobileLook;
-        //}
+        }
     }
 
     private void Update()

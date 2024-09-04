@@ -80,6 +80,15 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""134da823-2aa7-41cf-bb91-96c871c3e6f6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -247,6 +256,28 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""action"": ""WeaponSide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80136fe0-bc21-4e9f-ad26-11f32cc191db"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f71d7ff-0d9a-4b13-bd98-459995339999"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -261,6 +292,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         m_Controls_Fire = m_Controls.FindAction("Fire", throwIfNotFound: true);
         m_Controls_Reload = m_Controls.FindAction("Reload", throwIfNotFound: true);
         m_Controls_WeaponSide = m_Controls.FindAction("WeaponSide", throwIfNotFound: true);
+        m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -328,6 +360,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Fire;
     private readonly InputAction m_Controls_Reload;
     private readonly InputAction m_Controls_WeaponSide;
+    private readonly InputAction m_Controls_Pause;
     public struct ControlsActions
     {
         private @ControlsClass m_Wrapper;
@@ -338,6 +371,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Controls_Fire;
         public InputAction @Reload => m_Wrapper.m_Controls_Reload;
         public InputAction @WeaponSide => m_Wrapper.m_Controls_WeaponSide;
+        public InputAction @Pause => m_Wrapper.m_Controls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -365,6 +399,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @WeaponSide.started += instance.OnWeaponSide;
             @WeaponSide.performed += instance.OnWeaponSide;
             @WeaponSide.canceled += instance.OnWeaponSide;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IControlsActions instance)
@@ -387,6 +424,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @WeaponSide.started -= instance.OnWeaponSide;
             @WeaponSide.performed -= instance.OnWeaponSide;
             @WeaponSide.canceled -= instance.OnWeaponSide;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IControlsActions instance)
@@ -412,5 +452,6 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnWeaponSide(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

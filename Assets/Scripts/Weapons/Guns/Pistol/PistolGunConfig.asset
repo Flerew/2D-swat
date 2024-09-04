@@ -17,5 +17,5 @@ MonoBehaviour:
   _magazineCapacity: 12
   _timeBetweenShots: 0.5
   _reloadTime: 2
-  _bulletsSpreads: 5
+  _bulletsSpreads: 0.1
   _bulletSpeed: 0.5
