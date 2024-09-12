@@ -25,6 +25,7 @@ public abstract class Gun : Weapon
     protected float reloadTime;
     protected float bulletsSpreads;
     protected float bulletSpeed;
+    protected float cameraShake;
 
     public void Initialize()
     {
@@ -33,8 +34,9 @@ public abstract class Gun : Weapon
         magazineCapacity = _config.MagazineCapacity;
         timeBetweenShots = _config.TimeBetweenShots;
         reloadTime = _config.ReloadTime;
-        bulletsSpreads = _config.BulletsSpreads; // isnt using
+        bulletsSpreads = _config.BulletsSpreads;
         bulletSpeed = _config.BulletSpeed;
+        cameraShake = _config.CameraShake;
 
         ammoCount -= 5;
 
@@ -77,7 +79,6 @@ public abstract class Gun : Weapon
 
             await UniTask.Delay(TimeSpan.FromSeconds(timeBetweenShots));
             canShot = true;
-            
         }
     }
 
@@ -92,6 +93,8 @@ public abstract class Gun : Weapon
             Rigidbody2D bulletRb = component.GetRigidbody();
             bulletRb.AddForce(direction * _config.BulletSpeed, ForceMode2D.Impulse);
         }
+
+        CameraShake.Instance.ShakeCamera(cameraShake);
     }
 
     protected void ReduceAmmo()

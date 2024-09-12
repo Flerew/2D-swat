@@ -19,7 +19,7 @@ public class GunDropdown : MonoBehaviour
         _dropdown.value = value;
     }
 
-    public void OnMenuChoice() // 0-pistol 1-rifle 2-shotgun
+    public void OnMenuChoice() // 0-pistol 1-rifle 2-shotgun 3-submachineGun
     {
         int value = _dropdown.value;
         Gun gun;
@@ -38,6 +38,11 @@ public class GunDropdown : MonoBehaviour
 
             case 2:
                 gun = _gunFactory.Get(GunType.Shotgun);
+                ChangeGun?.Invoke(gun, value);
+                break;
+
+            case 3:
+                gun = _gunFactory.Get(GunType.SubmachineGun);
                 ChangeGun?.Invoke(gun, value);
                 break;
 

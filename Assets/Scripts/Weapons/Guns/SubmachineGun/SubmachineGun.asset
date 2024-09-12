@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fb9b57e533c33b44a6963af09ead984, type: 3}
-  m_Name: PistolGunConfig
+  m_Name: SubmachineGun
   m_EditorClassIdentifier: 
   _damage: 5
-  _ammoCount: 30
-  _magazineCapacity: 12
-  _timeBetweenShots: 0.5
-  _reloadTime: 2
+  _ammoCount: 280
+  _magazineCapacity: 20
+  _timeBetweenShots: 0.1
+  _reloadTime: 1.5
   _bulletsSpreads: 0.1
   _bulletSpeed: 0.5
-  _cameraShake: 0.5
+  _cameraShake: 1

@@ -9,6 +9,7 @@ public class PlayerCamera : MonoBehaviour
 {
     private Transform _player;
     private CinemachineVirtualCamera _camera;
+    private CameraShake _cameraShake;
 
     [Inject]
     private void Construct(Player player)
@@ -17,5 +18,12 @@ public class PlayerCamera : MonoBehaviour
 
         _camera = GetComponent<CinemachineVirtualCamera>();
         _camera.Follow = _player;
+
+        _cameraShake = new CameraShake(_camera);
+    }
+
+    private void Update()
+    {
+        _cameraShake.Update();
     }
 }

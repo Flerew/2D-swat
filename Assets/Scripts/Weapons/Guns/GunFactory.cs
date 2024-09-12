@@ -21,8 +21,8 @@ public class GunFactory : ScriptableObject
             case GunType.Shotgun:
                 return _config.ShotgunPrefab;
 
-            //case GunType.SubmachineGun:
-            //return new SubmachineGun;
+            case GunType.SubmachineGun:
+                return _config.SubmachineGun;
 
             default:
                 throw new System.ArgumentException(nameof(gunType));

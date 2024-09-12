@@ -19,3 +19,4 @@ MonoBehaviour:
   _reloadTime: 4
   _bulletsSpreads: 0.15
   _bulletSpeed: 0.4
+  _cameraShake: 2

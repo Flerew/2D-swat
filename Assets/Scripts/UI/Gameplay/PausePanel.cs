@@ -6,19 +6,24 @@ using UnityEngine.UI;
 
 public class PausePanel : MonoBehaviour
 {
+    public event Action<bool> Pause;
+
     [SerializeField] private Button _pauseButton;
     [SerializeField] private Button _resumeButton;
+    [SerializeField] private Button _backToMenuButton;
     [SerializeField] private List<GameObject> _menuObjects;
 
     private void Awake()
     {
-        _pauseButton.onClick.AddListener(Pause);
-        _resumeButton.onClick.AddListener(Resume);
+        _pauseButton.onClick.AddListener(PauseGame);
+        _resumeButton.onClick.AddListener(ResumeGame);
+        _backToMenuButton.onClick.AddListener(ResumeGame);
     }
 
-    private void Pause()
+    private void PauseGame()
     {
         Time.timeScale = 0f;
+        Pause?.Invoke(true);
 
         foreach (GameObject obj in _menuObjects)
         {
@@ -26,9 +31,10 @@ public class PausePanel : MonoBehaviour
         }
     }
 
-    private void Resume()
+    private void ResumeGame()
     {
         Time.timeScale = 1f;
+        Pause?.Invoke(false);
 
         foreach (GameObject obj in _menuObjects)
         {

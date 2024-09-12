@@ -10,6 +10,7 @@ public class GunConfig : ScriptableObject
     [SerializeField] private float _reloadTime;
     [SerializeField] private float _bulletsSpreads;
     [SerializeField] private float _bulletSpeed;
+    [SerializeField] private float _cameraShake;
 
     public float Damage => _damage;
     public int AmmoCount => _ammoCount;
@@ -18,4 +19,5 @@ public class GunConfig : ScriptableObject
     public float ReloadTime => _reloadTime;
     public float BulletsSpreads => _bulletsSpreads;
     public float BulletSpeed => _bulletSpeed;
+    public float CameraShake => _cameraShake;
 }

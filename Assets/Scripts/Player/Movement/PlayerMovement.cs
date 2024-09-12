@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         _controls.GetMove();
     }
@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
         float speed = _moveConfig.MoveSpeed;
 
+        Vector2 dir = new Vector2(transform.position.x + direction.x, transform.position.y + direction.y);
+
         if (_isSlowMoving)
             speed = _moveConfig.SlowMoveSpeed;
 
@@ -49,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
             if (_rb.velocity.magnitude > speed)
                 _rb.velocity = _rb.velocity.normalized * speed;
             else
-                _rb.AddForce(direction * speed);
+                transform.position = Vector2.Lerp(transform.position, dir, Time.fixedDeltaTime * speed);
         }
         else
         {
