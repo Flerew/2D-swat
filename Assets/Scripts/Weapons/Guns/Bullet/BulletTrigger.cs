@@ -27,7 +27,6 @@ public class BulletTrigger : MonoBehaviour
     private bool CheckAllowDistance(RaycastHit2D hit)
     {
         float distance = Vector3.Distance(transform.position, hit.point);
-        Debug.Log(distance);
 
         if (distance < MinTargetDistance)
         {

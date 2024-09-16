@@ -4,11 +4,13 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.ComponentModel;
 
-public abstract class Gun : Weapon
+public abstract class Gun : Weapon, IGun
 {
     public event Action<int, int> AmmoChange; // 1 - Ammo in the magazine 2 - Ammo count
+    public event Action OnShoot;
 
     [SerializeField] private GunConfig _config;
+    [SerializeField] private GunShakeAnimation _gunShakeAnimation;
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private Transform _bulletSpawnPos;
     [SerializeField] private GameObject _bulletCasing;
@@ -51,6 +53,8 @@ public abstract class Gun : Weapon
         }
 
         ShowAmmoEvent();
+
+        _gunShakeAnimation.Initialize(this, timeBetweenShots);
     }
 
     public void ShowAmmoEvent()
@@ -95,6 +99,7 @@ public abstract class Gun : Weapon
         }
 
         CameraShake.Instance.ShakeCamera(cameraShake);
+        OnShoot?.Invoke();
     }
 
     protected void ReduceAmmo()
