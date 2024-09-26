@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PlayerControls : IMove, IShoot, ILook, IWeaponSide
+public class PlayerControls : IMove, IShoot, ILook, IWeaponSide, IInteract
 {
     public event Action<Vector2> Move;
     public event Action<float> SlowMove;
     public event Action<Vector2> Look;
+    public event Action<float> OnInteract;
     public event Action<float> Shoot;
     public event Action<float> Reload;
     public event Action ChangeWeaponSideAction;
@@ -46,6 +47,12 @@ public class PlayerControls : IMove, IShoot, ILook, IWeaponSide
     {
         Vector2 lookInput = _playerInput.actions["Look"].ReadValue<Vector2>();
         Look?.Invoke(lookInput);
+    }
+
+    public void GetInteract()
+    {
+        float interactInput = _playerInput.actions["Interact"].ReadValue<float>();
+        OnInteract?.Invoke(interactInput);
     }
 
     public void GetShooting()

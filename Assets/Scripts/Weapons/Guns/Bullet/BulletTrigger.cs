@@ -16,9 +16,9 @@ public class BulletTrigger : MonoBehaviour
 
     private void CheckRaycast()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, LayerMask.GetMask("Walls"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, LayerMask.NameToLayer("Walls"));
 
-        if (hit.collider != null && CheckAllowDistance(hit))
+        if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Walls") && CheckAllowDistance(hit))
         {
             OnCollisionDetected?.Invoke(hit);
         }

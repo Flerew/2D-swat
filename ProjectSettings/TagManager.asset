@@ -14,8 +14,8 @@ TagManager:
   - Player
   - Weapon
   - Walls
-  - PlayerBullet
-  - EnemyBullet
+  - Bullet
+  - ObjectTrigger
   - 
   - 
   - 

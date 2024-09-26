@@ -18,5 +18,5 @@ MonoBehaviour:
   _timeBetweenShots: 0.1
   _reloadTime: 1.5
   _bulletsSpreads: 0.1
-  _bulletSpeed: 0.5
+  _bulletSpeed: 0.4
   _cameraShake: 1

@@ -55,6 +55,15 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""a20aab8d-5241-47f6-bebb-fe9a91b71625"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Fire"",
                     ""type"": ""Value"",
                     ""id"": ""93fe3930-e5a1-4254-912f-e7346c589bda"",
@@ -193,17 +202,6 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fd41f877-d522-485f-890f-6bf4e07cbf96"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SlowMove"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e218a4a5-20dd-4dd3-910e-7ce878a87256"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
@@ -278,6 +276,28 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""052fb557-0ffd-47db-9d7e-d5a08d4fc3c8"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90be8916-64ff-46b7-923c-23524091adeb"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -289,6 +309,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         m_Controls_Move = m_Controls.FindAction("Move", throwIfNotFound: true);
         m_Controls_SlowMove = m_Controls.FindAction("SlowMove", throwIfNotFound: true);
         m_Controls_Look = m_Controls.FindAction("Look", throwIfNotFound: true);
+        m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
         m_Controls_Fire = m_Controls.FindAction("Fire", throwIfNotFound: true);
         m_Controls_Reload = m_Controls.FindAction("Reload", throwIfNotFound: true);
         m_Controls_WeaponSide = m_Controls.FindAction("WeaponSide", throwIfNotFound: true);
@@ -357,6 +378,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Move;
     private readonly InputAction m_Controls_SlowMove;
     private readonly InputAction m_Controls_Look;
+    private readonly InputAction m_Controls_Interact;
     private readonly InputAction m_Controls_Fire;
     private readonly InputAction m_Controls_Reload;
     private readonly InputAction m_Controls_WeaponSide;
@@ -368,6 +390,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Controls_Move;
         public InputAction @SlowMove => m_Wrapper.m_Controls_SlowMove;
         public InputAction @Look => m_Wrapper.m_Controls_Look;
+        public InputAction @Interact => m_Wrapper.m_Controls_Interact;
         public InputAction @Fire => m_Wrapper.m_Controls_Fire;
         public InputAction @Reload => m_Wrapper.m_Controls_Reload;
         public InputAction @WeaponSide => m_Wrapper.m_Controls_WeaponSide;
@@ -390,6 +413,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
@@ -415,6 +441,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
@@ -449,6 +478,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnSlowMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnWeaponSide(InputAction.CallbackContext context);

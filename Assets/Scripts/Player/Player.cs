@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        //_gun.transform.position = _gunPosition.position;
         _gun.transform.rotation = transform.rotation;
     }
 }
