@@ -22,7 +22,7 @@ public class PlayerInteract : MonoBehaviour
         _controls.OnInteract += TryInteract;
     }
 
-    private void Update()
+    private voidspirit Update()
     {
         _controls.GetInteract();
     }
