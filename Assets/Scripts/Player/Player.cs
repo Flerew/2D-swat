@@ -36,4 +36,10 @@ public class Player : MonoBehaviour
     {
         _gun.transform.rotation = transform.rotation;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out IPlayerTrigger trigger))
+            trigger.OnPlayerEnter();
+    }
 }

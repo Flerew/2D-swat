@@ -268,17 +268,6 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7f71d7ff-0d9a-4b13-bd98-459995339999"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""052fb557-0ffd-47db-9d7e-d5a08d4fc3c8"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",

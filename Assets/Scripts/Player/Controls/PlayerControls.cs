@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
 
 public class PlayerControls : IMove, IShoot, ILook, IWeaponSide, IInteract
 {
