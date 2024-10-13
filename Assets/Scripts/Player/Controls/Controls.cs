@@ -98,6 +98,15 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d73968d-9aa0-4e0f-97ba-17670c47ad52"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -287,6 +296,17 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""408ef932-51ea-4b5c-93d0-9ebc0793b6e2"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -303,6 +323,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         m_Controls_Reload = m_Controls.FindAction("Reload", throwIfNotFound: true);
         m_Controls_WeaponSide = m_Controls.FindAction("WeaponSide", throwIfNotFound: true);
         m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
+        m_Controls_SwitchWeapon = m_Controls.FindAction("SwitchWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -372,6 +393,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Reload;
     private readonly InputAction m_Controls_WeaponSide;
     private readonly InputAction m_Controls_Pause;
+    private readonly InputAction m_Controls_SwitchWeapon;
     public struct ControlsActions
     {
         private @ControlsClass m_Wrapper;
@@ -384,6 +406,7 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         public InputAction @Reload => m_Wrapper.m_Controls_Reload;
         public InputAction @WeaponSide => m_Wrapper.m_Controls_WeaponSide;
         public InputAction @Pause => m_Wrapper.m_Controls_Pause;
+        public InputAction @SwitchWeapon => m_Wrapper.m_Controls_SwitchWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -417,6 +440,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @SwitchWeapon.started += instance.OnSwitchWeapon;
+            @SwitchWeapon.performed += instance.OnSwitchWeapon;
+            @SwitchWeapon.canceled += instance.OnSwitchWeapon;
         }
 
         private void UnregisterCallbacks(IControlsActions instance)
@@ -445,6 +471,9 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @SwitchWeapon.started -= instance.OnSwitchWeapon;
+            @SwitchWeapon.performed -= instance.OnSwitchWeapon;
+            @SwitchWeapon.canceled -= instance.OnSwitchWeapon;
         }
 
         public void RemoveCallbacks(IControlsActions instance)
@@ -472,5 +501,6 @@ public partial class @ControlsClass: IInputActionCollection2, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnWeaponSide(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnSwitchWeapon(InputAction.CallbackContext context);
     }
 }

@@ -12,6 +12,7 @@ public class Door : MonoBehaviour
     [SerializeField] private float _endRightPositionX;
 
     [SerializeField] private float _duration;
+    [SerializeField] private bool _isLocked;
 
     private bool _isOpen;
     private float _startLeftPositionX;
@@ -27,11 +28,13 @@ public class Door : MonoBehaviour
     {
         _isOpen = !_isOpen;
 
-        if (_isOpen)
+        if (_isOpen && _isLocked == false)
             OpenDoor();
         else
             CloseDoor();
     }
+
+    public void LockDoor(bool isLock) => _isLocked = isLock;
 
     private void OpenDoor()
     {
