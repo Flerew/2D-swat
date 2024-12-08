@@ -24,6 +24,7 @@ public class Shotgun : Gun
                 OneShoot();
             }
 
+            SpawnBulletCasing();
             ReduceAmmo();
 
             await UniTask.Delay(TimeSpan.FromSeconds(timeBetweenShots));

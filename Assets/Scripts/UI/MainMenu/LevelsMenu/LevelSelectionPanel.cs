@@ -8,7 +8,7 @@ public class LevelSelectionPanel : MonoBehaviour
 {
     [SerializeField] private SelectLevelButton[] _selectLevelButtons;
     [SerializeField] private Equipment _equipment;
-    [SerializeField] private DifficultLevelController _difficultLevelController;
+    //[SerializeField] private DifficultLevelController _difficultLevelController;
 
     private SceneLoadMediator _sceneLoader;
 
@@ -32,9 +32,9 @@ public class LevelSelectionPanel : MonoBehaviour
 
     private void OnLevelSelected(int level)
     {
-        int difficultLevel = _difficultLevelController.SaveDifficultyLevel.GetLevelValue();
+        //int difficultLevel = _difficultLevelController.SaveDifficultyLevel.GetLevelValue();
 
-        LevelLoadingData levelLoadingData = new LevelLoadingData((DifficultyLevel)difficultLevel);
+        LevelLoadingData levelLoadingData = new LevelLoadingData(DifficultyLevel.Normal);
         PlayerLoadingData playerLoadingData = new PlayerLoadingData(_equipment.Gun);
 
         _sceneLoader.GoToGameplayLevel(levelLoadingData, playerLoadingData, level);

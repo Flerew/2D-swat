@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private BulletHole _bulletHole;
     [SerializeField] private List<BulletTrigger> _bulletTriggers;
+    [SerializeField] private float _lifeTime = 20f;
 
     private void Awake()
     {
@@ -13,6 +15,8 @@ public class Bullet : MonoBehaviour
         {
             trigger.OnCollisionDetected += SpawnHole;
         }
+
+        StartCoroutine(DestroyAfterTime());
     }
 
     public GameObject Spawn(Transform spawnPos, Quaternion rotation)
@@ -29,6 +33,12 @@ public class Bullet : MonoBehaviour
     {
         // Need to check layer
         _bulletHole.SpawnHole(hit, transform);
+        Destroy(gameObject);
+    }
+
+    private IEnumerator DestroyAfterTime()
+    {
+        yield return new WaitForSeconds(_lifeTime);
         Destroy(gameObject);
     }
 }

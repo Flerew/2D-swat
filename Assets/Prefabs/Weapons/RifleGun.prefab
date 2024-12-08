@@ -181,4 +181,5 @@ MonoBehaviour:
   _gunShakeAnimation: {fileID: 7776252272112103555}
   _bulletPrefab: {fileID: -8859256230774186769, guid: ccfb90b7616716b43bea2c3853c0d53e, type: 3}
   _bulletSpawnPos: {fileID: 313806364143519086}
-  _bulletCasing: {fileID: 0}
+  _bulletCasing: {fileID: 5157151099567831068, guid: 3fd574998a9150341868d04861129a76, type: 3}
+  _bulletCasingSpawnPos: {fileID: 313806364143519086}

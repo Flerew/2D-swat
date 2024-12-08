@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using System.ComponentModel;
 
 public abstract class Gun : Weapon, IGun
 {
@@ -13,7 +11,8 @@ public abstract class Gun : Weapon, IGun
     [SerializeField] private GunShakeAnimation _gunShakeAnimation;
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private Transform _bulletSpawnPos;
-    [SerializeField] private GameObject _bulletCasing;
+    [SerializeField] private BulletCasing _bulletCasing;
+    [SerializeField] private Transform _bulletCasingSpawnPos;
 
     protected bool canShot = true;
     protected bool isEnoughAmmo;
@@ -78,6 +77,7 @@ public abstract class Gun : Weapon, IGun
         {
             canShot = false;
             OneShoot();
+            SpawnBulletCasing();
 
             ReduceAmmo();
 
@@ -96,10 +96,10 @@ public abstract class Gun : Weapon, IGun
 
             Rigidbody2D bulletRb = component.GetRigidbody();
             bulletRb.AddForce(direction * _config.BulletSpeed, ForceMode2D.Impulse);
-        }
 
-        CameraShake.Instance.ShakeCamera(cameraShake);
-        OnShoot?.Invoke();
+            CameraShake.Instance.ShakeCamera(cameraShake);
+            OnShoot?.Invoke();
+        }
     }
 
     protected void ReduceAmmo()
@@ -109,6 +109,14 @@ public abstract class Gun : Weapon, IGun
 
         if (ammoCountInMagazine <= 0)
             isEnoughAmmo = false;
+    }
+
+    protected void SpawnBulletCasing()
+    {
+        Vector2 bulletCasingDirection = transform.right;
+
+        BulletCasing casing = Instantiate(_bulletCasing, _bulletCasingSpawnPos.position, Quaternion.identity);
+        casing.Spawn(bulletCasingDirection);
     }
 
     private async UniTaskVoid ReloadMagazineAsync()
