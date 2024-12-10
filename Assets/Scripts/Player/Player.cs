@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Transform _rightGunPosition;
     [SerializeField] private Transform _leftGunPosition;
+    [SerializeField] public List<Transform> _viewTriggers;
 
     private Transform _gunPosition;
     private WeaponSide _weaponSide;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     private PlayerControls _playerControls;
 
     public Gun Gun => _gun;
+    public List<Transform> ViewTriggers => _viewTriggers;
 
     [Inject]
     private void Construct(PlayerLoadingData loadingData, PlayerControls playerControls)

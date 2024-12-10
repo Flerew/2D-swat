@@ -17,3 +17,4 @@ MonoBehaviour:
     _minStayTime: 1
     _maxStayTime: 3
     _stayChance: 100
+    _rotateSpeed: 5

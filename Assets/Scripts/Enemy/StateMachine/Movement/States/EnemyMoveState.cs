@@ -15,6 +15,8 @@ namespace Enemy
         public override void Update()
         {
             MoveToWayPoint();
+            if(_currentWayPoint != null) 
+                LookAtTarget(_currentWayPoint, _enemyConfig.RotateSpeed);
 
             if (GetIfPointMaxDistance())
                 SetOrStayAtPoint();

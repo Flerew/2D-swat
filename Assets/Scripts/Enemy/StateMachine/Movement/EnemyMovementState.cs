@@ -1,7 +1,10 @@
+using Cysharp.Threading.Tasks;
 using Enemy;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -36,6 +39,7 @@ namespace Enemy
         protected void SetRandomWayPoint()
         {
             _currentWayPoint = _enemy.WayPoints[Random.Range(0, _enemy.WayPoints.Count)];
+            _enemy.Shoot();
         }
 
         protected void StopAtOwnPosition()
@@ -51,24 +55,16 @@ namespace Enemy
             if (_currentWayPoint != null)
             {
                 _enemy.transform.position = Vector2.MoveTowards(enemyPos, _currentWayPoint.position, speed * Time.deltaTime);
-
-                //LookAtTarget();
-                _enemy.LookAtTarget(_currentWayPoint, 2);
             }
         }
 
-        private void LookAtTarget()
+        protected void LookAtTarget(Transform target, float time)
         {
-            Vector3 direction = _currentWayPoint.position - _enemy.transform.position;
+            Vector3 direction = target.position - _enemy.transform.position;
             float rotateZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-            _enemy.transform.rotation = Quaternion.Euler(0, 0, rotateZ);
-            //float match = Vector2.Angle(enemyPos, _currentWayPoint.position);
-            //_enemy.transform.rotation = new Quaternion(0, 0, match, 0);
 
-            //Vector3 direction = _mousePosition - transform.position;
-            //float rotateZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-
-            //transform.rotation = Quaternion.Euler(0, 0, rotateZ);
+            Quaternion targetRotation = Quaternion.Euler(0, 0, rotateZ);
+            _enemy.transform.rotation = Quaternion.Lerp(_enemy.transform.rotation, targetRotation, time * Time.deltaTime);
         }
 
         protected bool GetIfPointMaxDistance()
