@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 9216460508555647976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.175, y: 0.175, z: 1}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -148,3 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletHole: {fileID: 951656632505262628, guid: 1a4d39aa63986d348861af4367c6e2c6, type: 3}
   _bulletTriggers: []
+  _lifeTime: 20

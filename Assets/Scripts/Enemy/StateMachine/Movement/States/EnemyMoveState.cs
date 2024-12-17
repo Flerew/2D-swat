@@ -10,6 +10,7 @@ namespace Enemy
 
         public EnemyMoveState(IStateSwitcher stateSwitcher, EnemyNPC enemy) : base(stateSwitcher, enemy)
         {
+            enemy.ViewTrigger.DetectPlayer += SetState;
         }
 
         public override void Update()
@@ -48,6 +49,11 @@ namespace Enemy
                 return true;
             else 
                 return false;
+        }
+
+        private void SetState()
+        {
+            _stateSwitcher.SwitchState<EnemyMoveShootState>();
         }
     }
 }

@@ -76,7 +76,7 @@ public abstract class Gun : Weapon, IGun
         if (canShot && isEnoughAmmo)
         {
             canShot = false;
-            OneShoot();
+            OneShot();
             SpawnBulletCasing();
 
             ReduceAmmo();
@@ -86,7 +86,7 @@ public abstract class Gun : Weapon, IGun
         }
     }
 
-    protected void OneShoot()
+    protected void OneShot()
     {
         GameObject bullet = _bulletPrefab.Spawn(_bulletSpawnPos, transform.rotation);
 

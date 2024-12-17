@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,11 +8,13 @@ namespace Enemy
         [SerializeField] private EnemyConfig _config;
         [SerializeField] private List<Transform> _wayPoints;
         [SerializeField] private Gun _gun;
+        [SerializeField] private ViewTrigger _viewTrigger;
 
         private EnemyStateMachine _stateMachine;
 
         public EnemyConfig Config => _config;
         public List<Transform> WayPoints => _wayPoints;
+        public ViewTrigger ViewTrigger => _viewTrigger;
 
         private void Awake()
         {
