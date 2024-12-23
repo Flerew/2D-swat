@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Enemy

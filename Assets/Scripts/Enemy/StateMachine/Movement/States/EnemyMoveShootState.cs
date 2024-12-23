@@ -3,16 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMoveShootState : EnemyMovementState
+namespace Enemy
 {
-    public EnemyMoveShootState(IStateSwitcher stateSwitcher, EnemyNPC enemy) : base(stateSwitcher, enemy)
+    public class EnemyMoveShootState : EnemyMovementState
     {
-    }
+        private ViewTrigger _viewTrigger;
+        private ShootStateConfig _config;
 
-    public override void Update()
-    {
-        base.Update();
+        public EnemyMoveShootState(IStateSwitcher stateSwitcher, EnemyNPC enemy) : base(stateSwitcher, enemy)
+        {
+            _viewTrigger = enemy.ViewTrigger;
+            _config = enemy.Config.ShootStateConfig;
+        }
 
-        //LookAtTarget()
+        public override void Update()
+        {
+            base.Update();
+
+            LookAtTarget(_viewTrigger.LastPlayerPositionPoint.transform, _config.RotateSpeed);
+        }
     }
 }

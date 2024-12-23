@@ -21,7 +21,7 @@ public class Shotgun : Gun
 
             for (int i = 0; i < _bulletsPerShot; i++)
             {
-                OneShoot();
+                OneShot();
             }
 
             SpawnBulletCasing();

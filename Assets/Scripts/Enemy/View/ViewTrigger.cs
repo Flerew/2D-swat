@@ -6,15 +6,20 @@ using Zenject;
 
 public class ViewTrigger : MonoBehaviour
 {
-    public event Action DetectPlayer; 
+    public event Action DetectPlayer;
+
+    [SerializeField] private GameObject _lastPlayerPositionPrefab;
 
     private List<Transform> _playerTriggers;
+
+    public GameObject LastPlayerPositionPoint { get; private set; } = null;
 
     [Inject]
     private void Construct(Player player)
     {
         _playerTriggers = player.ViewTriggers;
     }
+
 
     private void Update()
     {
@@ -31,7 +36,16 @@ public class ViewTrigger : MonoBehaviour
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("ViewTrigger"))
             {
                 DetectPlayer?.Invoke();
+                SetLastPointPosition(hit.collider.transform); 
             }
         }
+    }
+
+    private void SetLastPointPosition(Transform point)
+    {
+        if (LastPlayerPositionPoint == null)
+            LastPlayerPositionPoint = Instantiate(_lastPlayerPositionPrefab, point.position, Quaternion.identity);
+
+        LastPlayerPositionPoint.transform.position = point.position;
     }
 }

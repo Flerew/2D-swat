@@ -1,8 +1,3 @@
-using Cysharp.Threading.Tasks;
-using Enemy;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -39,7 +34,6 @@ namespace Enemy
         protected void SetRandomWayPoint()
         {
             _currentWayPoint = _enemy.WayPoints[Random.Range(0, _enemy.WayPoints.Count)];
-            _enemy.Shoot();
         }
 
         protected void StopAtOwnPosition()
