@@ -3,7 +3,7 @@ using Random = UnityEngine.Random;
 
 namespace Enemy
 {
-    public class EnemyMovementState : IState
+    public abstract class EnemyMovementState : IState
     {
         private const float MaxDistance = 0.25f;
 
@@ -47,18 +47,7 @@ namespace Enemy
             float speed = _enemyConfig.Speed;
 
             if (_currentWayPoint != null)
-            {
                 _enemy.transform.position = Vector2.MoveTowards(enemyPos, _currentWayPoint.position, speed * Time.deltaTime);
-            }
-        }
-
-        protected void LookAtTarget(Transform target, float time)
-        {
-            Vector3 direction = target.position - _enemy.transform.position;
-            float rotateZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-
-            Quaternion targetRotation = Quaternion.Euler(0, 0, rotateZ);
-            _enemy.transform.rotation = Quaternion.Lerp(_enemy.transform.rotation, targetRotation, time * Time.deltaTime);
         }
 
         protected bool GetIfPointMaxDistance()

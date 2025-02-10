@@ -20,4 +20,7 @@ MonoBehaviour:
     _rotateSpeed: 2
   ShootStateConfig:
     _rotateSpeed: 5
-    _shootDegree: 0
+    _additionalDegree: 5
+  StayConfig:
+    _minStayTime: 2
+    _maxStayTime: 8

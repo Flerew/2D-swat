@@ -13,7 +13,9 @@ namespace Enemy
             _states = new List<IState>()
             {
                 new EnemyMoveState(this, enemy),
-                new EnemyMoveShootState(this, enemy)
+                new EnemyMoveShootState(this, enemy),
+                new EnemyPassiveStayState(this, enemy),
+                new EnemyAgressiveStayState(this, enemy)
             };
 
             _currentState = _states[0];

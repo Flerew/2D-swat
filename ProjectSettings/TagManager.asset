@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ship
+  - EnemyTarget
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Weapon
   - Walls
   - Bullet
-  - ObjectTrigger
+  - 
   - PlayerBarrier
   - BulletCasing
   - ViewTrigger
@@ -26,7 +27,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - ObjectTrigger
   - 
   - 
   - 

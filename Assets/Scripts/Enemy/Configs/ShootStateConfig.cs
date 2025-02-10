@@ -7,9 +7,10 @@ namespace Enemy
     public class ShootStateConfig
     {
         [SerializeField] private float _rotateSpeed;
-        [SerializeField] private float _shootDegree;
+        [SerializeField] private float _additionalDegree = 5f;
 
         public float RotateSpeed => _rotateSpeed;
-        public float ShootDegree => _shootDegree;
+        public float AdditionalDegree => _additionalDegree;
+
     }
 }

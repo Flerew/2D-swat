@@ -242,6 +242,8 @@ MonoBehaviour:
   - {fileID: 724757299359764266}
   - {fileID: 8367662445924170222}
   - {fileID: 4479111077896920746}
+  _lifeTime: 20
+  _damage: 1
 --- !u!1 &4817432118010848562
 GameObject:
   m_ObjectHideFlags: 0

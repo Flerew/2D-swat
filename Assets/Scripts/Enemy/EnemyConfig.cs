@@ -7,5 +7,6 @@ namespace Enemy
     {
         [field: SerializeField] public MoveStateConfig MoveStateConfig;
         [field: SerializeField] public ShootStateConfig ShootStateConfig;
+        [field: SerializeField] public StayConfig StayConfig;
     }
 }

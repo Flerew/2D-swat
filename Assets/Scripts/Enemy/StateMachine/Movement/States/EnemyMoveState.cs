@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using System;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Enemy
@@ -11,17 +10,29 @@ namespace Enemy
 
         public EnemyMoveState(IStateSwitcher stateSwitcher, EnemyNPC enemy) : base(stateSwitcher, enemy)
         {
-            enemy.ViewTrigger.DetectPlayer += SetState;
         }
 
         public override void Update()
         {
             MoveToWayPoint();
+
             if(_currentWayPoint != null) 
-                LookAtTarget(_currentWayPoint, _enemyConfig.RotateSpeed);
+                _enemy.LookAtTarget(_currentWayPoint, _enemyConfig.RotateSpeed);
 
             if (GetIfPointMaxDistance())
                 SetOrStayAtPoint();
+        }
+
+        public override void Enter()
+        {
+            _enemy.ViewTrigger.DetectPlayer += SetAgressiveState;
+
+            SetRandomWayPoint();
+        }
+
+        public override void Exit()
+        {
+            _enemy.ViewTrigger.DetectPlayer -= SetAgressiveState;
         }
 
         private void SetOrStayAtPoint()
@@ -52,9 +63,14 @@ namespace Enemy
                 return false;
         }
 
-        private void SetState()
+        private void SetAgressiveState()
         {
-            _stateSwitcher.SwitchState<EnemyMoveShootState>();
+            int random = Random.Range(0, 2);
+
+            if (random == 1)
+                _stateSwitcher.SwitchState<EnemyMoveShootState>();
+            else
+                _stateSwitcher.SwitchState<EnemyAgressiveStayState>();
         }
     }
 }

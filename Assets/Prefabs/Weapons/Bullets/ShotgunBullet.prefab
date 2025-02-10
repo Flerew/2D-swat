@@ -148,3 +148,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletHole: {fileID: 951656632505262628, guid: 1a4d39aa63986d348861af4367c6e2c6, type: 3}
   _bulletTriggers: []
+  _lifeTime: 20
+  _damage: 1

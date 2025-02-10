@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class PausePanel : MonoBehaviour
 {
@@ -13,8 +14,13 @@ public class PausePanel : MonoBehaviour
     [SerializeField] private Button _backToMenuButton;
     [SerializeField] private List<GameObject> _menuObjects;
 
-    private void Awake()
+    private CursorController _cursorController;
+
+    [Inject]
+    private void Construct(CursorController cursorController)
     {
+        _cursorController = cursorController;
+
         _pauseButton.onClick.AddListener(PauseGame);
         _resumeButton.onClick.AddListener(ResumeGame);
         _backToMenuButton.onClick.AddListener(ResumeGame);
@@ -22,6 +28,8 @@ public class PausePanel : MonoBehaviour
 
     private void PauseGame()
     {
+        _cursorController.SetDefaultCursor();
+
         Time.timeScale = 0f;
         Pause?.Invoke(true);
 
@@ -33,6 +41,8 @@ public class PausePanel : MonoBehaviour
 
     private void ResumeGame()
     {
+        _cursorController.SetGameplayCursor();
+
         Time.timeScale = 1f;
         Pause?.Invoke(false);
 

@@ -15,9 +15,9 @@ public class Shotgun : Gun
 
     private async UniTaskVoid ShotgunShoot()
     {
-        if (canShot && isEnoughAmmo)
+        if (_canShot && _isEnoughAmmo)
         {
-            canShot = false;
+            _canShot = false;
 
             for (int i = 0; i < _bulletsPerShot; i++)
             {
@@ -27,8 +27,8 @@ public class Shotgun : Gun
             SpawnBulletCasing();
             ReduceAmmo();
 
-            await UniTask.Delay(TimeSpan.FromSeconds(timeBetweenShots));
-            canShot = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenShots));
+            _canShot = true;
 
         }
     }

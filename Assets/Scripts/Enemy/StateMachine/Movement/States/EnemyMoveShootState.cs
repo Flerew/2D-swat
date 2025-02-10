@@ -1,8 +1,3 @@
-using Enemy;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Enemy
 {
     public class EnemyMoveShootState : EnemyMovementState
@@ -20,7 +15,7 @@ namespace Enemy
         {
             base.Update();
 
-            LookAtTarget(_viewTrigger.LastPlayerPositionPoint.transform, _config.RotateSpeed);
+            _enemy.LookAtTarget(_viewTrigger.LastPlayerPositionPoint.transform, _config.RotateSpeed, _config.AdditionalDegree);
         }
     }
 }

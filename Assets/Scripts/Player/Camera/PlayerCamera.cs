@@ -17,7 +17,7 @@ public class PlayerCamera : MonoBehaviour
         _player = player.gameObject.transform;
 
         _camera = GetComponent<CinemachineVirtualCamera>();
-        _camera.Follow = _player;
+        _camera.Follow = player.CameraPoint.transform;
 
         _cameraShake = new CameraShake(_camera);
     }

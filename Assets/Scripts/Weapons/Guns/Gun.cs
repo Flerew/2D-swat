@@ -14,51 +14,52 @@ public abstract class Gun : Weapon, IGun
     [SerializeField] private BulletCasing _bulletCasing;
     [SerializeField] private Transform _bulletCasingSpawnPos;
 
-    protected bool canShot = true;
-    protected bool isEnoughAmmo;
-    protected bool isReloading;
+    protected bool _canShot = true;
+    protected bool _isEnoughAmmo;
+    protected bool _isReloading;
+    protected bool _isNPC;
 
-    protected float damage;
-    protected int ammoCount;
-    protected int magazineCapacity;
-    protected int ammoCountInMagazine;
-    protected float timeBetweenShots;
-    protected float reloadTime;
-    protected float bulletsSpreads;
-    protected float bulletSpeed;
-    protected float cameraShake;
+    protected int _ammoCount;
+    protected int _magazineCapacity;
+    protected int _ammoCountInMagazine;
+    protected float _timeBetweenShots;
+    protected float _reloadTime;
+    protected float _bulletsSpreads;
+    protected float _bulletSpeed;
+    protected float _cameraShake;
 
-    public void Initialize()
+    public void Initialize(bool isNPC)
     {
-        damage = _config.Damage; // isnt using
-        ammoCount = _config.AmmoCount;
-        magazineCapacity = _config.MagazineCapacity;
-        timeBetweenShots = _config.TimeBetweenShots;
-        reloadTime = _config.ReloadTime;
-        bulletsSpreads = _config.BulletsSpreads;
-        bulletSpeed = _config.BulletSpeed;
-        cameraShake = _config.CameraShake;
+        _isNPC = isNPC;
 
-        ammoCount -= 5;
+        _ammoCount = _config.AmmoCount;
+        _magazineCapacity = _config.MagazineCapacity;
+        _timeBetweenShots = _config.TimeBetweenShots;
+        _reloadTime = _config.ReloadTime;
+        _bulletsSpreads = _config.BulletsSpreads;
+        _bulletSpeed = _config.BulletSpeed;
+        _cameraShake = _config.CameraShake;
 
-        if (ammoCount > 0)
+        _ammoCount -= 5;
+
+        if (_ammoCount > 0)
         {
-            isEnoughAmmo = true;
+            _isEnoughAmmo = true;
 
-            if (ammoCount < magazineCapacity)
-                ammoCountInMagazine = ammoCount;
+            if (_ammoCount < _magazineCapacity)
+                _ammoCountInMagazine = _ammoCount;
             else
-                ammoCountInMagazine = magazineCapacity;
+                _ammoCountInMagazine = _magazineCapacity;
         }
 
         ShowAmmoEvent();
 
-        _gunShakeAnimation.Initialize(this, timeBetweenShots);
+        _gunShakeAnimation.Initialize(this, _timeBetweenShots);
     }
 
     public void ShowAmmoEvent()
     {
-        AmmoChange?.Invoke(ammoCountInMagazine, ammoCount);
+        AmmoChange?.Invoke(_ammoCountInMagazine, _ammoCount);
     }
 
     public virtual void Shoot()
@@ -73,16 +74,16 @@ public abstract class Gun : Weapon, IGun
 
     protected async UniTaskVoid ShootAsync()
     {
-        if (canShot && isEnoughAmmo)
+        if (_canShot && _isEnoughAmmo)
         {
-            canShot = false;
+            _canShot = false;
             OneShot();
             SpawnBulletCasing();
 
             ReduceAmmo();
 
-            await UniTask.Delay(TimeSpan.FromSeconds(timeBetweenShots));
-            canShot = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(_timeBetweenShots));
+            _canShot = true;
         }
     }
 
@@ -97,18 +98,23 @@ public abstract class Gun : Weapon, IGun
             Rigidbody2D bulletRb = component.GetRigidbody();
             bulletRb.AddForce(direction * _config.BulletSpeed, ForceMode2D.Impulse);
 
-            CameraShake.Instance.ShakeCamera(cameraShake);
+            CameraShake.Instance.ShakeCamera(_cameraShake);
             OnShoot?.Invoke();
         }
     }
 
     protected void ReduceAmmo()
     {
-        ammoCountInMagazine--;
-        AmmoChange?.Invoke(ammoCountInMagazine, ammoCount);
+        _ammoCountInMagazine--;
+        AmmoChange?.Invoke(_ammoCountInMagazine, _ammoCount);
 
-        if (ammoCountInMagazine <= 0)
-            isEnoughAmmo = false;
+        if (_ammoCountInMagazine <= 0)
+        {
+            _isEnoughAmmo = false;
+
+            if (_isNPC)
+                ReloadMagazine();
+        }
     }
 
     protected void SpawnBulletCasing()
@@ -121,36 +127,36 @@ public abstract class Gun : Weapon, IGun
 
     private async UniTaskVoid ReloadMagazineAsync()
     {
-        if (ammoCount > 0 && isReloading == false)
+        if (_ammoCount > 0 && _isReloading == false)
         {
-            isEnoughAmmo = false;
-            isReloading = true;
+            _isEnoughAmmo = false;
+            _isReloading = true;
 
-            await UniTask.Delay(TimeSpan.FromSeconds(reloadTime));
+            await UniTask.Delay(TimeSpan.FromSeconds(_reloadTime));
 
-            int ammoToFullMagazine = magazineCapacity - ammoCountInMagazine;
+            int ammoToFullMagazine = _magazineCapacity - _ammoCountInMagazine;
 
-            if (ammoCount >= ammoToFullMagazine)
+            if (_ammoCount >= ammoToFullMagazine)
             {
-                ammoCount -= ammoToFullMagazine;
-                ammoCountInMagazine += ammoToFullMagazine;
+                _ammoCount -= ammoToFullMagazine;
+                _ammoCountInMagazine += ammoToFullMagazine;
             }
             else
             {
-                ammoCountInMagazine += ammoCount;
-                ammoCount = 0;
+                _ammoCountInMagazine += _ammoCount;
+                _ammoCount = 0;
             }
 
-            AmmoChange?.Invoke(ammoCountInMagazine, ammoCount);
+            AmmoChange?.Invoke(_ammoCountInMagazine, _ammoCount);
 
-            isEnoughAmmo = true;
-            isReloading = false;
+            _isEnoughAmmo = true;
+            _isReloading = false;
         }
     }
 
     private float GetRandomSpread()
     {
-        float value = UnityEngine.Random.Range(-bulletsSpreads, bulletsSpreads);
+        float value = UnityEngine.Random.Range(-_bulletsSpreads, _bulletsSpreads);
 
         return value;
     }
